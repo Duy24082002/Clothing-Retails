@@ -1,0 +1,80 @@
+swagger: "2.0"
+info:
+  description: "User Management API"
+  version: "1.0.0"
+  title: "User API"
+basePath: "/api"
+schemes:
+  - "http"
+  - "https"
+paths:
+  /sign-up:
+    post:
+      summary: "Create a new user"
+      description: "Endpoint for registering a new user."
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "user"
+          description: "User object that needs to be created."
+          required: true
+          schema:
+            $ref: "#/definitions/UserInput"
+      responses:
+        200:
+          description: "User created successfully"
+          schema:
+            $ref: "#/definitions/User"
+        400:
+          description: "Bad Request"
+  /sign-in:
+    post:
+      summary: "Login user"
+      description: "Endpoint for user login."
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "credentials"
+          description: "User credentials for login."
+          required: true
+          schema:
+            $ref: "#/definitions/UserCredentials"
+      responses:
+        200:
+          description: "Login successful"
+          schema:
+            $ref: "#/definitions/User"
+        401:
+          description: "Unauthorized"
+definitions:
+  User:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      username:
+        type: "string"
+      email:
+        type: "string"
+  UserInput:
+    type: "object"
+    properties:
+      username:
+        type: "string"
+      email:
+        type: "string"
+      password:
+        type: "string"
+  UserCredentials:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+      password:
+        type: "string"
